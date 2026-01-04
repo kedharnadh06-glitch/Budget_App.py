@@ -1,16 +1,36 @@
-The Budget App is a simple Python application that helps users track their spending across multiple budget categories.
-It supports adding deposits, withdrawals, and transfers between categories, and provides a visual bar chart to show the percentage spent in each category.
-This project demonstrates object-oriented programming concepts by using classes, as well as string formatting and basic data visualization in the terminal.
+** start of main.py **
 
-Features
-Category Class
-Create budget categories with their own ledger of transactions.
-Add deposits and withdrawals with optional descriptions.
-Transfer funds between categories.
-Check current balance and whether funds are sufficient.
-Print a formatted ledger showing all transactions and the total balance.
+def hanoi_solver(n):
+    # Initialize rods as lists, first rod has disks n..1 (largest to smallest)
+    rods = [list(range(n, 0, -1)), [], []]
+    result = []
 
-Spending Chart
-Generate a text-based bar chart representing the percentage of spending per category.
-The chart shows percentages rounded down to the nearest 10%.
-Category names are displayed vertically below the chart.
+    def record_state():
+        # Record current state of rods as a string: "[rod1] [rod2] [rod3]"
+        result.append(f"{rods[0]} {rods[1]} {rods[2]}")
+
+    def move_disks(num, start, end, temp):
+        if num == 0:
+            return
+        # Move top n-1 disks to temp rod
+        move_disks(num - 1, start, temp, end)
+
+        # Move the nth disk from start to end
+        disk = rods[start].pop()
+        rods[end].append(disk)
+        record_state()
+
+        # Move the n-1 disks from temp to end rod
+        move_disks(num - 1, temp, end, start)
+
+    # Record initial state before any move
+    record_state()
+
+    # Solve the puzzle by recursive moves
+    move_disks(n, 0, 2, 1)
+
+    # Return all states joined by newline character
+    return "\n".join(result)
+
+
+** end of main.py **
